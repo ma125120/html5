@@ -1,0 +1,47 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>拖放API</title>
+	<style>
+		#dragme {
+			height: 200px;
+			width: 200px;
+			/*transition: left .05s ease-out,top .05s ease-out;*/
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+
+	<script>
+		// var obj = null;
+		// function init() {
+		// 	var source = document.getElementById("dragme"),
+		// 			dest = document.getElementById("text");
+		// 	source.addEventListener("dragstart",function(ev) {
+		// 		var dt = ev.dataTransfer;
+		// 		dt.effectAllowed = "all";
+		// 		dt.setData("text/html",ev.target.outerHTML);
+		// 	},false);
+		// 	dest.addEventListener("dragend",function(ev) {
+		// 		ev.preventDefault();
+		// 	},false);
+
+		// 	dest.addEventListener("drop",function(ev) {
+		// 		var dt = ev.dataTransfer;
+		// 		var el = dt.getData("text/html");
+		// 		dest.innerHTML = el;
+		// 		//不执行默认处理（拒绝被拖放）
+		// 		ev.preventDefault();
+		// 		ev.stopPropagation();
+		// 	},false);
+		// 	document.ondragover = function(e) { e.preventDefault(); }
+		// 	document.ondrop = function(e) { e.preventDefault(); }
+		// }
+	</script>
+	
+	<div id="dragme" style="position:absolute;border: 1px solid #ccc">
+	</div>
+	<script src="js/index.js"></script>
+</body>
+</html>
