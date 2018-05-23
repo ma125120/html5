@@ -1,0 +1,35 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>web rtc</title>
+</head>
+<body>
+	<video width="800" height="400" id="myVideo" autoplay></video>
+	<img src="" alt="" id="img">
+	<canvas width="800" height="400" style="display: none" id="canvas"></canvas>
+	<script>
+		navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || window.navigator.mozGetUserMedia;
+		window.URL = window.URL || window.webkitURL;
+
+		var video = document.querySelector("#myVideo");
+		video.addEventListener("click",snapshot,false);
+		var canvas = document.querySelector("#canvas");
+		var ctx = canvas.getContext("2d");
+		var localMediaStream = null;
+		navigator.getUserMedia({video:true,audio: false},
+				function(stream) {
+					video.src = window.URL.createObjectURL(stream);
+					localMediaStream = stream;
+				},function(err) {
+					console.log(err);
+				});
+		function snapshot() {
+			if(localMediaStream) {
+				ctx.drawImage(video,0,0);
+				document.querySelector("#img").src = canvas.toDataURL("image/png")
+			}
+		}
+
+	</script>
+</body>
+</html>

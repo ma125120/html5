@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Page Visibility</title>
+</head>
+<body>
+  <script>
+    var pageVisibility = (function() {
+      var hidden = "hidden", visibilityChange = "visibilitychange",videoElement,
+          prefix = "";
+      if(typeof document.hidden !== "undefined") {
+        prefix = "";
+      } else if(typeof document.mozHidden !== "undefined") {
+        prefix = "moz";
+      } else if(typeof document.msHidden !== "undefined") {
+        prefix = "ms";
+      } else if(typeof document.webkitHidden !== "undefined") {
+        prefix = "webkit";
+      }
+      (prefix != "") && (hidden = prefix + "Hidden");
+      visibilityChange = prefix + visibilityChange;
+      return function(cb) {
+        document.addEventListener(visibilityChange,function(e) {
+          cb.call(window,e,hidden);
+        },false);
+      }
+    })();
+    pageVisibility(function handleVisibilityChange(e,hidden) {
+        if(document[hidden]) {
+          console.log('hidden');
+        } else {
+          console.log('show');
+        }
+    });
+    var req = function() {
+      return new Promise((resolve,reject)=>{
+        pageVisibility(resolve);
+      });
+    }
+    req()
+    .then(res=>{
+      console.log(res);
+    })
+  </script>
+</body>
+</html>

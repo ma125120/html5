@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>geolocation 地理位置</title>
+</head>
+<body>
+  <script>
+    ;(function() {
+      function get_location() {
+        if(navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(show_map,handle_error,{
+            enableHighAccuracy: true,
+            maximumAge: 1000
+          });
+        } else {
+          console.error('您的浏览器不支持通过HTML5来获取地理位置信息');
+        }
+      }
+
+      function showObject(obj,k) {
+        if(!obj) return ;
+        for(var i in obj) {
+          if(typeof (obj[i]) != "object" || obj[i] == null) {
+            for(var j = 0;j<k;j++) {
+              document.write("&nbsp&nbsp&nbsp&nbsp");
+            }
+            document.write( i + ":" + obj[i] + "<br/>");
+          } else {
+            document.write( i + ":" + "<br />");
+            showObject(obj[i],k+1);
+          }
+        }
+      }
+      function handle_error(err) {
+        switch(err.code) {
+          case 1:
+            console.error('位置服务被拒绝');
+            break;
+          case 2:
+            console.error('暂时获取不到位置信息');
+            break;
+          case 3:
+            console.error('获取信息超时');
+            break;
+          default:
+            console.error('未知错误');
+            break;
+        }
+      }
+      function show_map(position) {
+          var lat = position.coords.latitude;
+          var lon = position.coords.longitude;
+          showObject(position,0);
+        }
+      get_location();
+    })();
+  </script>
+</body>
+</html>
